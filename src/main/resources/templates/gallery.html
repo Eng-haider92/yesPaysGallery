@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/external/all.min.css">
+
+    <title>Yes Pays Gallery</title>
+</head>
+<body>
+
+    <!--------------------------------------------------------------
+                        NavBar
+    --------------------------------------------------------------->
+
+    <nav>
+        <a href="/"><img src="/img/logo/logo.png" alt=""></a>
+       
+        <ul class="list">
+            <li class="list-item"><a href="/home">Home</a></li>
+            <li class="list-item"><a href="/gallery">Gallery</a></li>
+            <li sec:authorize="hasAuthority('ADMIN')"class="list-item"><a href="/orders">Orders</a></li>
+            <li sec:authorize="isAuthenticated()" class="list-item"><a href="/addImage">Add Image</a></li>
+            <li sec:authorize="isAuthenticated()" class="list-item"><a href="#">Sort By</a>
+                <ul class="dropdown">
+                    <li th:each="category: ${categories}" class="dropdown-item">
+                        <a th:href="@{/category/{id}/(id = ${category.id})}">
+                            <span th:text="${category.categoryName}"></span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li sec:authorize="hasAuthority('USER')" class="list-item"><a href="/myGallery">My Gallery</a></li>
+        </ul>
+        <div class="nav-icon">
+            <p th:text="${username}"></p>
+            <a sec:authorize="isAuthenticated()" th:href="${'/logout'}"><i class="fa fa-sign-out"></i></a>
+            <a sec:authorize="isAnonymous()" th:href="${'/login'}"><i class ="fas fa-user"></i></a>
+
+
+        </div>
+    </nav>
+
+    
+    <!--------------------------------------------------------------
+                        gallery
+    --------------------------------------------------------------->
+
+    <section class = "gallery">
+        <div class="container">
+            <div class="heading">
+                <h2 th:text="${header}"></h2>
+            </div>
+            <div class="row">
+                <div class ="item" th:each = "image: ${images}">
+                    <div class="img-item">
+                        <img th:src ="@{${'/images/gallerys/' +image.id +'/' + image.imagePath}}" alt="">
+                        <a th:if="${isCompleted}"th:href="@{/imageViewer/{id}/(id = ${image.id})}" target="_blank" class="show-image">OPEN</a>
+                        <a th:if="${not isCompleted}" sec:authorize="hasAuthority('ADMIN')" th:href="@{/newOrder/{id}/(id = ${image.id})}" target="_blank" class="show-image">MANAGE</a>
+                    </div>
+                    <p>Category:<span th:text="${image.category.categoryName}"></span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+            
+
+    
+</body>
+</html>

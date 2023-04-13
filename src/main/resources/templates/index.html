@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/external/all.min.css">
+
+    <title>Yes Pays Gallery</title>
+</head>
+<body>
+
+    <nav>
+        <a href="/"><img src="/img/logo/logo.png" alt=""></a>
+        <ul class="list">
+            <li class="list-item"><a href="/home">Home</a></li>
+            <li class="list-item"><a href="/gallery">Gallery</a></li>
+            <li sec:authorize="hasAuthority('ADMIN')"  class="list-item"><a href="/orders">Orders</a></li>
+            <li sec:authorize="isAuthenticated()" class="list-item"><a href="/addImage">Add image</a></li>
+            <li sec:authorize="isAuthenticated()" class="list-item"><a href="#">Sort By</a>
+                <ul class="dropdown">
+                    <li th:each="category: ${categories}" class="dropdown-item">
+                        <a th:href="@{/category/{id}/(id = ${category.id})}">
+                            <span th:text="${category.categoryName}"></span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li sec:authorize="hasAuthority('USER')" class="list-item"><a  href="/myGallery">My Gallery</a></li>
+        </ul>
+        <div class="nav-icon">
+            <a href="/login"><i class ="fas fa-user"></i></a>
+        </div>
+    </nav>
+
+
+
+    <!----------------------------------------------------------------
+                      Header Section
+    ----------------------------------------------------------------->
+    <header class="header">
+        <div class="container">
+            <div class="row">                
+                <div class="content-box">
+                    <span>Upload your pics</span>
+                    <h2>Watch other people gallery</h2>
+                    <p>A gallery made by love only for you, Enjoy your time with us.</p>
+                    <button class="btn">Start</button>
+                </div>
+
+                <div class="img-box">
+                    <img src="/img/hero.jpg" alt="hero image">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    
+</body>
+</html>

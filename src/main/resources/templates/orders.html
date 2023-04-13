@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/external/all.min.css">
+    <title>Yes Pays Gallery</title>
+</head>
+<body>
+
+
+    <!-- *******************************************************
+                    Header Section
+    ******************************************************** -->
+        <nav>
+            <a href="/"><img src="/img/logo/logo.png" alt=""></a>
+           
+            <ul class="list">
+                <li class="list-item"><a href="/home">Home</a></li>
+                <li class="list-item"><a href="/gallery">Gallery</a></li>
+                <li sec:authorize="hasAuthority('ADMIN')"  class="list-item"><a href="/orders">Orders</a></li>
+                <li sec:authorize="isAuthenticated()" class="list-item"><a href="/addImage">Add image</a></li>
+                <li sec:authorize="isAuthenticated()" class="list-item"><a href="#">Sort By</a>
+                    <ul class="dropdown">
+                        <li th:each="category: ${categories}" class="dropdown-item">
+                            <a th:href="@{/category/{id}/(id = ${category.id})}">
+                                <span th:text="${category.categoryName}"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li sec:authorize="hasAuthority('USER')"  class="list-item"><a href="/myGallery">My Galley</a></li>
+            </ul>
+            <div class="nav-icon">
+                <p sec:authorize="isAuthenticated()" th:text="${username}"></p>
+                <a sec:authorize="isAuthenticated()" th:href="${'/logout'}"><i class="fa fa-sign-out"></i></a>
+            </div>
+        </nav>
+
+
+       
+    <!-- ======================================================
+                recipe section
+    ========================================================-->
+    <section class="viewer">
+        <div class="container">
+            <div class="row">
+                <div class="img-box">
+                    <img th:src ="@{${'/images/gallerys/' + image.id +'/' + image.imagePath}}" alt="">
+                </div>
+                <div class="text-box">
+
+                    <div class="type-box">
+                        <p>Gategory: <span th:text="${image.category.categoryName}"></span></p>
+                    </div>
+
+                    <div class="desc-box">
+                        <p>Description: <span th:text="${image.Description}"></span></p>
+                    </div>
+
+                    <div sec:authorize="hasAuthority('ADMIN')"  class="submit-box">
+                        <span th:text ="${success}"></span>
+                        <button class="btn"><a th:href= "@{/updateImage/{id}/{status}(id = ${image.id}, status =  true)}">Accept</a></button>
+                        <button class="btn"><a th:href= "@{/updateImage/{id}/{status}(id = ${image.id}, status =  false)}">Reject</a></button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+</body>
+</html>

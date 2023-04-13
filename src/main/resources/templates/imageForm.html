@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/external/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <title>Yes Pays Gallery</title>
+</head>
+<body>
+
+    <nav>
+        <a href="/"><img src="img/logo/logo.png" alt=""></a>
+       
+        <ul class="list">
+            <li class="list-item"><a href="/home">Home</a></li>
+            <li class="list-item"><a href="/gallery">Gallery</a></li>
+            <li sec:authorize="hasAuthority('ADMIN')"  class="list-item"><a href="/orders">Orders</a></li>
+            <li class="list-item"><a href="/addImage">Add image</a></li>
+            <li class="list-item"><a href="#">Sort By</a>
+                <ul class="dropdown">
+                    <li th:each="category: ${categories}" class="dropdown-item">
+                        <a th:href="@{/category/{id}/(id = ${category.id})}">
+                            <span th:text="${category.categoryName}"></span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li sec:authorize="hasAuthority('USER')" class="list-item"><a href="/myGallery">My Gallery</a></li>
+        </ul>
+        <div class="nav-icon">
+            <p th:text="${username}"></p>
+            <a th:href="${'/logout'}"><i class="fa fa-sign-out"></i></a>
+        </div>
+    </nav>
+
+
+
+    
+    
+    <section class="image-form-section">
+        <div class="head-content">
+            <h2>New Image:</h2>
+        </div>
+
+        <form class="img-form" action="#" th:action="@{/addImage}" th:object = "${image}"  enctype="multipart/form-data" method="post">
+
+            <input type="hidden" th:field = "*{id}" th:value ="${id}">
+            
+            
+            <div class="image-gategory">
+                <label for="categoryName">Choose category:</label>
+                <select required name="categoryName">
+                    <option value="">Category</option>
+                    <option th:each ="category: ${categories}"
+                            th:value = "${category.categoryName}"
+                            th:text = "${category.categoryName}">
+                    </option>
+                </select>
+            </div>
+
+
+            <div class="image-path">
+                <img id="imgPreview" src="img/image-preview.png"/>
+                <div class="file-upload-wrapper" data-text="Select your file!">
+                    <input type="file" value="" name="imageFile" class="file-upload-field" onchange="readURL(this);" accept="image/png, image/jpg, image/jpeg" required><br>
+                </div> 
+            </div>
+
+
+            <label class="desc-label">Description:</label>
+            <div class="desc-content">
+                <textarea type="text" name="description" th:field="*{description}" placeholder=" " required><br>
+                </textarea>
+            </div>
+
+
+            <div class="submit-content">
+                <div class="image-error">
+                    <label class="error" th:text="${message}"></label>
+                </div>
+
+                <div class="image-submit">
+                    <a href="/home">Cancel</a>
+                    <button type="submit" class="btn">Add</button>
+                </div>
+            </div>
+
+        </form>
+    </section>
+
+
+
+    <script src="/js/scripts.js"></script>
+   
+</body>
+</html>

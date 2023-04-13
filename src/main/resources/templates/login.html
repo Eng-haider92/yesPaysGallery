@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/external/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <title>Yes Pays Gallery</title>
+</head>
+<body>
+
+    <!-- ======================================================
+                login section
+    ========================================================-->
+    <div class="content">
+		<div class="form sign-in">
+            <form th:action="@{/login}" method="post">
+                <h2>Welcome back, enter your login details:</h2>
+
+                <div class="input_group">
+                    <div class="input_feild">
+                        <input name = "username" type="text" placeholder=" " required>
+                        <span class="input_label">Username</span>
+                    </div>
+                </div>
+
+                <div class="input_group">
+                    <div class="input_feild">
+                        <input name="password" type="password" placeholder=" " required>
+                        <span class="input_label">Password</span>
+                    </div>
+                </div>
+
+                <div th:if="${param.error}" class="error">
+                    <p>Username or Password invalid, please verify</p>
+                </div>
+
+                <div class="btn-form">                        
+                    <button type="submit" class="btn">Login</button><br>
+                </div>
+
+                <div class="user-msg">
+                    <label th:text="${successMessage}"></label>
+                    <label th:text="${existUser}"></label>
+                </div>
+            </form>
+            <a href ="/"><i class="fa fa-arrow-circle-left arrow"></i></a>    
+        </div>
+
+    <!-- ======================================================
+                toggle section between sign up and login
+    ========================================================-->
+    <div class="sub-content">
+        <div class="img">
+            <div class="img__text m--up">
+                <h2>New here?</h2>
+                <p>Sign up and discover great amount of new pics!</p>
+            </div>
+            <div class="img__text m--in">
+                <h2>One of us?</h2>
+                <p>If you already has an account, just sign in. We've missed you!</p>
+            </div>
+            <div class="img__btn">
+                <span class="m--up">Sign Up</span>
+                <span class="m--in">login</a></span>
+            </div>
+        </div>
+
+    <!-- ======================================================
+                sign up section
+    ========================================================-->
+        <div class="form sign-up">
+            <form action="#" th:action="@{/signup}" th:object = "${user}" method="post">
+                <h2>Please, Fill in your information please:</h2>
+                <div class="input_group">
+                    <div class="input_feild">
+                        <input type="text" th:field="*{username}" placeholder=" " required>
+                        <span class="input_label">Username</span>
+                    </div>
+                </div>
+
+                <div class="input_group">
+                    <div class="input_feild">                    
+                        <input type="email"  th:field="*{email}" placeholder=" " required>
+                        <span class="input_label">Email</span>
+                    </div>
+                </div>
+
+                <div class="input_group">
+                    <div class="input_feild">                     
+                        <input type="password" th:field="*{password}" placeholder=" " required min="5">
+                        <span class="input_label">Password</span>
+                    </div>
+                </div>
+
+                <div class="form-submit">                        
+                    <button type="submit" class="btn">Sign Up</button><br>
+                </div>
+
+            </form>
+            <a href ="/"><i class="fa fa-arrow-circle-left arrow"></i></a>    
+        </div>
+    </div>
+    </div>
+
+
+    <script src="/js/scripts.js"></script>
+
+    
+</body>
+</html>

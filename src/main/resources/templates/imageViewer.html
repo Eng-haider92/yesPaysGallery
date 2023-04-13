@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/external/all.min.css">
+    <title>Yes Pays Gallery</title>
+</head>
+<body>
+      
+    <!-- ======================================================
+                image viewer
+    ========================================================-->
+    <section class="image-viewer">
+        <div class="container">
+            <div class="img-box">
+                <img th:src ="@{${'/images/gallerys/' + image.id +'/' + image.imagePath}}" alt="">
+            </div>
+        </div>
+    </section>
+
+
+
+</body>
+</html>
