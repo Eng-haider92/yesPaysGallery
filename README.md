@@ -33,15 +33,15 @@ List the ready features here:
 
 
 ## Setup
-1- clone the repositry in your local server.
-2- create postgres user for our app with the following details
-**** database_user = spring
-**** database_pass = spring 
-3- for testing run the following command in the root directory:
-******* mvn test 
-4- for running the application use the following command:
-******* mvn spring-boot:run
-5- Note: if you dont have maven in your local server use ./mvnw instaed.
+> clone the repositry in your local server.
+> create postgres user for our app with the following details
+- database_user = spring
+- database_pass = spring 
+> for testing run the following command in the root directory:
+- mvn test 
+> for running the application use the following command:
+- mvn spring-boot:run
+> Note: if you dont have maven in your local server use ./mvnw instaed.
    
 
 
