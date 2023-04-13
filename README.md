@@ -24,11 +24,11 @@ List the ready features here:
 
 
 ## Screenshots
-![screenshot1](./screenshoot/1.png)
-![screenshot2](./screenshoot/2.png)
-![screenshot3](./screenshoot/3.png)
-![screenshot4](./screenshoot/4.png)
-![screenshot5](./screenshoot/5.png)
+![screenshot1](../yespaysgallery/screenshoot/1.PNG)
+![screenshot2](../yespaysgallery/screenshoot/2.png)
+![screenshot3](../yespaysgallery/screenshoot/3.png)
+![screenshot4](../yespaysgallery/screenshoot/4.png)
+![screenshot5](../yespaysgallery/screenshoot/5.png)
 <!-- If you have screenshots you'd like to share, include them here. -->
 
 
